@@ -99,7 +99,7 @@ public class Lander : MonoBehaviour
                 }
                 if (GameInput.instance.isUpLanderPressed())
                 {
-                    float speed = 800f;
+                    float speed = 780f;
                     landerRigidBody2D.AddForce(speed * transform.up * Time.deltaTime);
                     onUpforce?.Invoke(this, EventArgs.Empty);
                 }

@@ -10,12 +10,18 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private Button restartButton;
     [SerializeField] private Button soundVolumeButton;
     [SerializeField] private Button musicVolumeButton;
+    [SerializeField] private Button guideButton;
+    [SerializeField] private Button backButton;
+
     [SerializeField] private TextMeshProUGUI soundVolumeTextMesh;
     [SerializeField] private TextMeshProUGUI musicVolumeTextMesh;
+
+    [SerializeField] private GameObject guideScreen;
 
     private void Awake()
     {
         Time.timeScale = 1f;
+
         soundVolumeButton.onClick.AddListener(() => { 
             SoundManager.Instance.ChangeSoundVolume();
             soundVolumeTextMesh.text = "SOUND " + SoundManager.Instance.GetSoundVolume();
@@ -27,9 +33,13 @@ public class PauseUI : MonoBehaviour
         resumeButton.onClick.AddListener(() => { GameManager.Instance.UnPauseGame(); });
         menuButton.onClick.AddListener(() => { SceneLoader.LoadScene(SceneLoader.Scene.MainMenueScene); });
         restartButton.onClick.AddListener(() => { GameManager.Instance.RetryLevel(); });
+
+        backButton.onClick.AddListener(() => { guideScreen.SetActive(false); });
+        guideButton.onClick.AddListener(() => { guideScreen.SetActive(true); });
     }
     private void Start()
     {
+        Time.timeScale = 1f;
         Hide();
         GameManager.Instance.onGamePaused += GameManager_onGamePaused;
         GameManager.Instance.onGameUnPaused += GameManager_onGameUnPaused;
